@@ -7,3 +7,5 @@ dist
 .vscode
 .idea
 .editorconfig
+FastChat/*
+.DS_Store
