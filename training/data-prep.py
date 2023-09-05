@@ -3,16 +3,20 @@ import ast
 
 
 def generate_training_data(filename, write):
+    if "train" in filename:
+        sep = ", 'Output': "
+    else:
+        sep = "\n###Output: "
     with open(write, "w") as w:
         with open(filename) as f:
-            id = 0
+            id = 1000
             data = []
             for line in f:
                 entry = {"id": "identity_{}".format(id)}
                 id += 1
                 line = json.loads(line)
-#                print(line)
-                line = line["code"].split(", 'Output': ")
+                # print(line)
+                line = line["code"].split(sep)
                 # instruction = line[0].split("Instruction': ")[1] # extract the instruction
                 instruction = line[0][1:] # extract the instruction and take away unwanted char
                 # print(instruction)
@@ -31,4 +35,4 @@ def generate_training_data(filename, write):
 
 
 if __name__ == '__main__':
-    generate_training_data("../data/apibench/torchhub_train.json", "../data/training/torchhub_train.json")
+    generate_training_data("../data/apibench/torchhub_eval.json", "../data/training/torchhub_eval.json")

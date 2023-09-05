@@ -1,20 +1,22 @@
 deepspeed \
+	--master_port=20001 \
 	~/llama/gorilla/FastChat/fastchat/train/train.py \
 	--save_total_limit 2 \
 	--model_name_or_path ~/llama/base-model \
 	--data_path ~/llama/gorilla/data/training/torchhub_train.json \
 	--fp16 True \
+	--eval_data_path ~/llama/gorilla/data/training/torchhub_eval.json \
 	--output_dir gorilla-model-torch-v0/ \
 	--num_train_epochs 5 \
-	--per_device_train_batch_size 1 \
-	--per_device_eval_batch_size 1 \
+	--per_device_train_batch_size 64 \
+	--per_device_eval_batch_size 64 \
 	--gradient_accumulation_steps 1 \
 	--evaluation_strategy "steps" \
 	--eval_steps 6 \
 	--save_strategy "steps" \
 	--save_steps 6 \
 	--logging_steps 6 \
-	--learning_rate 1e-5 \
+	--learning_rate 2e-5 \
 	--weight_decay 0. \
 	--warmup_ratio 0.03 \
 	--lr_scheduler_type "cosine" \
