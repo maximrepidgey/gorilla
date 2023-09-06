@@ -9,3 +9,4 @@ dist
 .editorconfig
 FastChat/*
 .DS_Store
+training/gorilla-model-torch-v0/

@@ -8,13 +8,13 @@ deepspeed \
 	--eval_data_path ~/llama/gorilla/data/training/torchhub_eval.json \
 	--output_dir gorilla-model-torch-v0/ \
 	--num_train_epochs 5 \
-	--per_device_train_batch_size 64 \
-	--per_device_eval_batch_size 64 \
+	--per_device_train_batch_size 16 \
+	--per_device_eval_batch_size 16 \
 	--gradient_accumulation_steps 1 \
 	--evaluation_strategy "steps" \
-	--eval_steps 6 \
+	--eval_steps 18 \
 	--save_strategy "steps" \
-	--save_steps 6 \
+	--save_steps 18 \
 	--logging_steps 6 \
 	--learning_rate 2e-5 \
 	--weight_decay 0. \
