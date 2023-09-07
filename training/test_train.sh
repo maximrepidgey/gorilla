@@ -2,20 +2,20 @@ deepspeed \
 	--master_port=20001 \
 	~/llama/gorilla/FastChat/fastchat/train/train.py \
 	--save_total_limit 2 \
-	--model_name_or_path ~/llama/base-model \
-	--data_path ~/llama/gorilla/data/training/torchhub_train.json \
+	--model_name_or_path opt/models/llama \
+	--data_path ~/llama/gorilla/data/training/tensorflow_train.json \
 	--fp16 True \
-	--eval_data_path ~/llama/gorilla/data/training/torchhub_eval.json \
-	--output_dir gorilla-model-torch-v0/ \
+	--eval_data_path ~/llama/gorilla/data/training/tensorflow_eval.json \
+	--output_dir ~/llama/gorilla/training/models/gorilla-model-tensorflow-v0/ \
 	--num_train_epochs 5 \
-	--per_device_train_batch_size 16 \
-	--per_device_eval_batch_size 16 \
+	--per_device_train_batch_size 20 \
+	--per_device_eval_batch_size 20 \
 	--gradient_accumulation_steps 1 \
 	--evaluation_strategy "steps" \
-	--eval_steps 18 \
+	--eval_steps 120 \
 	--save_strategy "steps" \
-	--save_steps 18 \
-	--logging_steps 6 \
+	--save_steps 120 \
+	--logging_steps 24 \
 	--learning_rate 2e-5 \
 	--weight_decay 0. \
 	--warmup_ratio 0.03 \
@@ -25,4 +25,4 @@ deepspeed \
 	--gradient_checkpointing True \
 	--lazy_preprocess True \
 	--report_to "none" \
-	--deepspeed ds_config.json \
+	--deepspeed ~/llama/gorilla/training/ds_config.json \

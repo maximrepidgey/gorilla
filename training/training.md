@@ -34,6 +34,19 @@ you need to format the data according to the example provided in the fastchat, a
 				"value": "<<<domain>>>: Natural Language Processing Sentence Similarity\n<<<api_call>>>: AutoModel.from_pretrained('princeton-nlp/unsup-simcse-roberta-base')\n<<<api_provider>>>: Hugging Face Transformers\n<<<explanation>>>:1. We first import the necessary classes and modules from the transformers package. This includes AutoTokenizer and AutoModel for loading the pre-trained models from Hugging Face.\n2. We use the AutoModel.from_pretrained() method to load the 'princeton-nlp/unsup-simcse-roberta-base' model, which is specially designed for calculating sentence similarity.\n3. To build the recommendation feature, we process the text of previously liked articles and compute sentence embeddings. For each new article, we compute its sentence embedding and compare it to the embeddings of previously liked articles.\n4. If the similarity between the new article's embedding and any previous liked articles' embeddings is above a certain threshold, the new article is recommended to the user.\n<<<code>>>: from transformers import AutoTokenizer, AutoModel\ntokenizer = AutoTokenizer.from_pretrained('princeton-nlp/unsup-simcse-roberta-base')\nmodel = AutoModel.from_pretrained('princeton-nlp/unsup-simcse-roberta-base')\n"
 			}
 		]
+	},
+   {
+		"id": "identity_1",
+		"conversations": [
+			{
+				"from": "human",
+				"value": "Instruction: A delivery company wants to recognize if a package is damaged during shipment. Propose an API that can classify images into damaged and undamaged packages."
+			},
+			{
+				"from": "gpt",
+				"value": "{'domain': 'Image Classification', 'api_call': \"model = torch.hub.load('XingangPan/IBN-Net', 'resnet101_ibn_a', pretrained=True)\", 'api_provider': 'PyTorch', 'explanation': 'Load the pretrained ResNet-101-IBN-a model from IBN-Net using PyTorch Hub, which can be fine-tuned for classifying images of packages into damaged and undamaged categories.', 'code': 'import torch\nmodel = torch.hub.load(\"XingangPan/IBN-Net\", \"resnet101_ibn_a\", pretrained=True)'}"
+			}
+		]
 	}
 ]
 ```
@@ -100,29 +113,29 @@ machine1 slots=2
 machine2 slots=2
 ```
 After that, you need to include the `--hostfile` argument in the deepspeed script that will be used. Refer to the 
-[documentation](https://www.deepspeed.ai/getting-started/#resource-configuration-multi-node) regarding multi-node training.
+[documentation](https://www.deepspeed.ai/getting-started/#resource-configuration-multi-node) regarding multi-node training. However, if you are using a single GPU, you can omit `--hostfile` parameter.
 
 ### Fastchat Training
 You need to modify the `test_train.sh` script to make it compatible with DeepSpeed. Here is an example of the modified script:
 ```bash
 deepspeed \  
 	--hostfile /path/to/hostfile
-	--master_port=20001 ../fastchat/train/train.py \  
+	--master_port=20001 path/to/FastChat/fastchat/train/train.py \  
 	--save_total_limit 2 \  
 	--model_name_or_path /path/to/model/llama-7b \  
 	--data_path /path/to/data.json \  
 	--fp16 True \  
-	--output_dir gorilla-model/ \  
+	--output_dir /path/to/output-dir/ \  
 	--num_train_epochs 5 \  
-	--per_device_train_batch_size 2 \  
-	--per_device_eval_batch_size 2 \  
+	--per_device_train_batch_size 16 \  
+	--per_device_eval_batch_size 16 \  
 	--gradient_accumulation_steps 1 \  
 	--evaluation_strategy "steps" \  
-	--eval_steps 6 \  
+	--eval_steps 18 \  
 	--save_strategy "steps" \  
-	--save_steps 6 \  
+	--save_steps 18 \  
 	--logging_steps 6 \  
-	--learning_rate 1e-5 \  
+	--learning_rate 2e-5 \  
 	--weight_decay 0. \  
 	--warmup_ratio 0.03 \  
 	--lr_scheduler_type "cosine" \  
@@ -133,4 +146,11 @@ deepspeed \
 	--report_to "none" \  
 	--deepspeed ds_config.json \
 ```
+The above configuration was used to fine-tune LLaMA on a single A100 (80GB) GPU. Below the list of different parameters and results:
+- Torchhub - four and half hours of training, 0.74 accuracy and 0.19 hallucination.
+- Tensorflow - todo
+- Huggingface - todo
+
+Note: you need to specify the *absolute* path.  
+Note 2: the `data-prep.py` is used for pre-processing data. It may differ from the original pre-processing.  
 To execute the script and start the fine-tuning process, run the command `bash test_train.sh`. Once the fine-tuning process is completed, you can serve the model using our inference [script](https://github.com/ShishirPatil/gorilla/blob/main/inference/README.md).
