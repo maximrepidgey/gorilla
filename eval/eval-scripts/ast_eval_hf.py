@@ -118,7 +118,7 @@ def main(args):
     total_hallucination = 0
     for idx, response in enumerate(llm_responses):
         try:
-            output = response['text']
+            output = response['response']
         except:
             print('Error: cannot parse line ', idx)
             continue

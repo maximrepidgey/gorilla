@@ -1,7 +1,7 @@
 #!/bin/bash
 
 python ~/llama/gorilla/inference/gorilla_eval.py \
-	--model-path ~/llama/gorilla/training/gorilla-model-huggingface-v0 \
+	--model-path ~/llama/gorilla/training/models/gorilla-model-huggingface-v0 \
 	--question-file ~/llama/gorilla/eval/eval-data/questions/huggingface/questions_huggingface_0_shot.jsonl \
 	--answer-file ~/llama/gorilla/eval/eval-data/responses-our/huggingface/responses_huggingface_0_shot.jsonl \
 

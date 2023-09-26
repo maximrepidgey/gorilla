@@ -18,6 +18,16 @@ python get_llm_responses.py --model gpt-3.5-turbo --api_key $API_KEY --output_fi
 python get_llm_responses_retriever.py --retriever bm25 --model gpt-3.5-turbo --api_key $API_KEY --output_file gpt-3.5-turbo_torchhub_0_shot.jsonl --question_data eval-data/questions/torchhub/questions_torchhub_0_shot.jsonl --api_name torchhub --api_dataset ../data/api/torchhub_api.jsonl
 ```
 
+### Getting Responses from Gorilla
+
+In order to evaluate the gorilla or any other model, use the following command:
+
+```bash
+python ../inference/gorilla_eval.py --model-path path/to/model --question-file path/to/questions.jsonl --answer-file path/to/answers.jsonl
+```
+
+
+
 ### Evaluate the Response with AST tree matching
 
 After the responses of the LLM is generated, we can start to evaluate the generated responses with respect to our dataset:

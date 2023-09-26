@@ -119,11 +119,12 @@ After that, you need to include the `--hostfile` argument in the deepspeed scrip
 You need to modify the `test_train.sh` script to make it compatible with DeepSpeed. Here is an example of the modified script:
 ```bash
 deepspeed \  
-	--hostfile /path/to/hostfile
+	--hostfile path/to/hostfile
 	--master_port=20001 path/to/FastChat/fastchat/train/train.py \  
 	--save_total_limit 2 \  
-	--model_name_or_path /path/to/model/llama-7b \  
-	--data_path /path/to/data.json \  
+	--model_name_or_path path/to/model/llama-7b \  
+	--data_path path/to/data.json \  
+	--eval_data_path path/to/data_eval.json \
 	--fp16 True \  
 	--output_dir /path/to/output-dir/ \  
 	--num_train_epochs 5 \  
@@ -147,9 +148,9 @@ deepspeed \
 	--deepspeed ds_config.json \
 ```
 The above configuration was used to fine-tune LLaMA on a single A100 (80GB) GPU. Below the list of different parameters and results:
-- Torchhub - four and half hours of training, 0.74 accuracy and 0.19 hallucination.
-- Tensorflow - todo
-- Huggingface - todo
+- Torchhub - four and half hours of training, 0.74 accuracy and 0.19 hallucination. (0-shot)
+- Tensorflow - ~24 hours of training, 0.84 accuracy and 0,03 hallucination. (0-shot)
+- Huggingface - ~30 hours of training, 0
 
 Note: you need to specify the *absolute* path.  
 Note 2: the `data-prep.py` is used for pre-processing data. It may differ from the original pre-processing.  

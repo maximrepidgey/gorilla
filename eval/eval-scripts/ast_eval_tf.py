@@ -116,12 +116,15 @@ def main(args):
     total_hallucination = 0
     for idx, response in enumerate(llm_responses):
         try:
-            output = response['text']
+            output = response['response']
         except:
             print('Error: cannot parse line ', idx)
             continue
 
         # Index the "api_call" domain
+        print("---------------")
+        print(output)
+        print("---------------")
         output = output.split("api_call")
         if len(output) == 1:
             # print('Error: line ', idx, ' is not the right format')
@@ -139,7 +142,6 @@ def main(args):
             else:
                 end = output.rindex(")")
             api_call = output[start+2:end+1]
-
 
         # Parse the api_call into AST tree
         ast_tree = ast_parse(api_call)
@@ -161,6 +163,7 @@ def main(args):
 
     print('Final Functionality accuracy: ', total_correct / len(llm_responses))
     print('Final hallucination: ', total_hallucination/len(llm_responses))
+    print('Final error: ', (len(llm_responses) - total_hallucination - total_correct)/len(llm_responses))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

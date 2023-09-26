@@ -124,6 +124,9 @@ def process_response(response, api_database, qa_pairs, ast_database):
         return False, False
 
     # Index the "api_call" domain
+    print("---------------")
+    print(output)
+    print("---------------")
     output = output.split("api_call")
     if len(output) == 1:
         return False, False

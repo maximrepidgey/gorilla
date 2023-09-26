@@ -8,6 +8,7 @@ def generate_data(filename, write):
     it is ignored.
     Note: this is not an original pre-processing for the Gorilla.
     """
+
     print("Parsing " + filename)
     with open(write, "w") as w:
         with open(filename) as f:
@@ -19,25 +20,18 @@ def generate_data(filename, write):
                 entry = {"id": "identity_{}".format(id)}
                 id += 1
                 line = json.loads(line)
-                # print(line)
                 line = line["code"].split(sep)
-                # print(line)
-                # print("#############")
                 # instruction = line[0].split("Instruction': ")[1] # extract the instruction
                 instruction = line[0][1:] # extract the instruction and take away unwanted char
-                # print(instruction)
-                # print("#############")
 
                 # after splitting, try to extract the output, if the string is malformed, ignore it
                 try:
                     output = line[1]
+
                     entry["conversations"] = [{"from": "human", "value": instruction}, {"from": "gpt", "value": output.lstrip()}] # remove the white space in front
                     data.append(entry) # represent as an array with single element
                 except IndexError:
                     mal_num += 1
-                #jsonString = json.dumps(entry)
-                #w.write(jsonString)
-                #w.write("\n")
             total_data = len(data)
         data = json.dumps(data)
         w.write(data)
@@ -56,5 +50,7 @@ if __name__ == '__main__':
     # todo uncomment above and delete below
     # generate_data("../data/apibench/huggingface_eval.json", "../data/training/huggingface_eval.json")
     # generate_data("../data/apibench/huggingface_train.json", "../data/training/huggingface_train.json")
-    generate_data("../data/apibench/tensorflow_eval.json", "../data/training/tensorflow_eval.json")
-    generate_data("../data/apibench/tensorflow_train.json", "../data/training/tensorflow_train.json")
+    # generate_data("../data/apibench/torchhub_train.json", "../data/training/torchhub_train.json")
+    # generate_data("../data/apibench/torchhub_eval.json", "../data/training/torchhub_eval.json")
+    # generate_data("../data/apibench/tensorflow_eval.json", "../data/training/tensorflow_eval.json")
+    # generate_data("../data/apibench/tensorflow_train.json", "../data/training/tensorflow_train.json")

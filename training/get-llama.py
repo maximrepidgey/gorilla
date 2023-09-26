@@ -1,8 +1,9 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaTokenizer
 
 # this scripted was used to get LLaMA weights and tokenizer
 if __name__ == "__main__":
-    model = AutoModelForCausalLM.from_pretrained("yahma/llama-7b-hf")
+    model = AutoModelForCausalLM.from_pretrained("huggyllama/llama-7b")
     model.save_pretrained("./llama")
-    tokenizer = AutoTokenizer.from_pretrained("yahma/llama-7b-hf", legacy=True)
+    tokenizer = LlamaTokenizer.from_pretrained("huggyllama/llama-7b")
     tokenizer.save_pretrained("./llama")
+    # print(tokenizer.decode([424, 423]))g

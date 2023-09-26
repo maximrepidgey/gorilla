@@ -3,10 +3,10 @@ deepspeed \
 	~/llama/gorilla/FastChat/fastchat/train/train.py \
 	--save_total_limit 2 \
 	--model_name_or_path opt/models/llama \
-	--data_path ~/llama/gorilla/data/training/tensorflow_train.json \
+	--data_path ~/llama/gorilla/data/training/huggingface_train.json \
 	--fp16 True \
-	--eval_data_path ~/llama/gorilla/data/training/tensorflow_eval.json \
-	--output_dir ~/llama/gorilla/training/models/gorilla-model-tensorflow-v0/ \
+	--eval_data_path ~/llama/gorilla/data/training/huggingface_eval.json \
+	--output_dir ~/llama/gorilla/training/models/gorilla-model-huggingface-v0/ \
 	--num_train_epochs 5 \
 	--per_device_train_batch_size 20 \
 	--per_device_eval_batch_size 20 \

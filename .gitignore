@@ -11,3 +11,4 @@ FastChat/*
 .DS_Store
 training/models/
 training/get-llama.py
+eval/eval-scripts/*.sh
