@@ -15,7 +15,7 @@ def generate_data(filename, write):
             id = 0  # todo change identity
             mal_num = 0
             data = []
-            sep = "Output:"
+            sep = "Output"
             for line in f:
                 entry = {"id": "identity_{}".format(id)}
                 id += 1

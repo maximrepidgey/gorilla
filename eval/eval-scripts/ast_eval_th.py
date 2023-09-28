@@ -118,7 +118,7 @@ def parse_dataset(args):
 def process_response(response, api_database, qa_pairs, ast_database):
     # Read the line from JSON file
     try:
-        output = response["text"]
+        output = response["response"]
     except:
         print("Error: cannot parse line ", response)
         return False, False

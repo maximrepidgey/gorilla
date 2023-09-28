@@ -1,0 +1,25 @@
+composer \
+	~/llama/FastChat/fastchat/train/train.py \
+	--model_name_or_path /opt/models/llama \
+	--data_path ~/llama/gorilla/data/training/torchhub_train.json \
+	--fp16 True \
+	--eval_data_path ~/llama/gorilla/data/training/torchhub_eval.json \
+	--output_dir ~/llama/gorilla/training/models/gorilla-model-torchhub-v2/ \
+	--num_train_epochs 5 \
+	--per_device_train_batch_size 20 \
+	--per_device_eval_batch_size 20 \
+	--gradient_accumulation_steps 1 \
+	--evaluation_strategy "steps" \
+	--eval_steps 48 \
+	--save_strategy "steps" \
+	--save_steps 48 \
+	--logging_steps 24 \
+	--learning_rate 2e-5 \
+	--weight_decay 0. \
+	--warmup_ratio 0.03 \
+	--lr_scheduler_type "cosine" \
+	--tf32 False \
+	--model_max_length 2048 \
+	--gradient_checkpointing True \
+	--lazy_preprocess True \
+	--report_to "none" \
