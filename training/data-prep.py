@@ -80,7 +80,7 @@ def generate_data_mosaic(filename, write):
                 try:
                     output = line[1]
 
-                    entry = {"prompt": instruction, "response": "###Output" + output.lstrip()}  # remove the white space in front
+                    entry = json.dumps({'prompt': instruction, 'response': "###Output" + output.lstrip()})  # remove the white space in front
                     w.write(str(entry)+"\n")
                 except IndexError:
                     mal_num += 1
