@@ -10,6 +10,7 @@ dist
 FastChat/*
 .DS_Store
 training/models/
+training/llama/
 training/get-llama.py
 eval/eval-scripts/*.sh
-training/llama/
+**/.DS_Store
