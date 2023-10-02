@@ -1,0 +1,52 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 12863867,
+  "description": "",
+  "download_checksums": {
+    "/Users/mryakhov/Desktop/llama/gorilla/training/../data/finetune/huggingface_train.jsonl": {
+      "num_bytes": 11937591,
+      "checksum": null
+    },
+    "/Users/mryakhov/Desktop/llama/gorilla/training/../data/finetune/huggingface_eval.jsonl": {
+      "num_bytes": 1341649,
+      "checksum": null
+    }
+  },
+  "download_size": 13279240,
+  "features": {
+    "prompt": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "response": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 26143107,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 11564104,
+      "num_examples": 8147,
+      "dataset_name": "json"
+    },
+    "validation": {
+      "name": "validation",
+      "num_bytes": 1299763,
+      "num_examples": 907,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
